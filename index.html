@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matthews™ | Sales Careers</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:         #0B1F3A;
+    --navy-mid:     #102448;
+    --navy-card:    #0E2040;
+    --navy-border:  #1E3A5F;
+    --blue-accent:  #2A6DB5;
+    --blue-hover:   #3580CC;
+    --white:        #FFFFFF;
+    --gray:         #7A9BBF;
+    --gray-light:   #B0C8E0;
+    --disabled:     #2A3F58;
+    --disabled-text:#4A6A8A;
+    --error:        #E05555;
+    --success:      #2EAF6F;
+  }
+
+  html, body { min-height: 100%; background: var(--navy); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; }
+
+  /* HEADER */
+  header { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; border-bottom: 1px solid var(--navy-border); background: var(--navy); position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; cursor: pointer; }
+  .logo-box { background: var(--white); padding: 6px 10px; }
+  .logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--navy); letter-spacing: 0.08em; }
+  .logo-divider { width: 1px; height: 28px; background: var(--navy-border); }
+  .logo-label { font-size: 12px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-light); }
+  .header-right { font-size: 12px; color: var(--gray); letter-spacing: 0.05em; }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap { height: 2px; background: var(--navy-border); }
+  .progress-bar { height: 100%; background: var(--blue-accent); transition: width 0.4s ease; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; animation: sweepDown 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  @keyframes sweepDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+  .page-inner { max-width: 680px; margin: 0 auto; padding: 60px 24px 100px; }
+
+  /* TYPOGRAPHY */
+  .eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-accent); margin-bottom: 12px; font-weight: 500; }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px, 6vw, 60px); line-height: 1.0; letter-spacing: 0.04em; color: var(--white); margin-bottom: 12px; }
+  .subtitle { font-size: 14px; color: var(--gray-light); font-weight: 300; line-height: 1.6; margin-bottom: 40px; }
+
+  /* FORM ELEMENTS */
+  .form-group { margin-bottom: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-light); margin-bottom: 8px; }
+  label .optional { color: var(--gray); font-weight: 300; text-transform: none; letter-spacing: 0; margin-left: 4px; font-size: 11px; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="url"], select, textarea {
+    width: 100%; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px;
+    padding: 14px 16px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300;
+    color: var(--white); outline: none; transition: border-color 0.2s; appearance: none;
+  }
+  input::placeholder, textarea::placeholder { color: var(--gray); }
+  input:focus, select:focus, textarea:focus { border-color: var(--blue-accent); }
+  input.error, select.error { border-color: var(--error); }
+  .error-msg { font-size: 11px; color: var(--error); margin-top: 6px; display: none; }
+  .error-msg.show { display: block; }
+  select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A9BBF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+  select option { background: var(--navy-mid); color: var(--white); }
+
+  /* RADIO YES/NO */
+  .radio-group { display: flex; gap: 12px; }
+  .radio-btn { flex: 1; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; padding: 14px 16px; text-align: center; cursor: pointer; font-size: 14px; font-weight: 400; color: var(--gray-light); transition: all 0.18s; user-select: none; }
+  .radio-btn:hover { border-color: var(--blue-accent); color: var(--white); }
+  .radio-btn.selected { border-color: var(--blue-accent); background: var(--navy-mid); color: var(--white); }
+
+  /* FILE UPLOAD */
+  .file-upload-wrap { position: relative; }
+  .file-upload-area { background: var(--navy-card); border: 1px dashed var(--navy-border); border-radius: 4px; padding: 32px 24px; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .file-upload-area:hover, .file-upload-area.dragover { border-color: var(--blue-accent); background: var(--navy-mid); }
+  .file-upload-area.has-file { border-style: solid; border-color: var(--blue-accent); }
+  .file-upload-icon { font-size: 28px; margin-bottom: 10px; }
+  .file-upload-text { font-size: 14px; color: var(--gray-light); }
+  .file-upload-text strong { color: var(--white); font-weight: 500; }
+  .file-upload-sub { font-size: 12px; color: var(--gray); margin-top: 4px; }
+  .file-name { font-size: 13px; color: var(--blue-accent); margin-top: 8px; font-weight: 500; }
+  input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+
+  /* HOW DID YOU HEAR */
+  .hear-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hear-option { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; padding: 14px 16px; cursor: pointer; font-size: 13px; color: var(--gray-light); transition: all 0.18s; user-select: none; }
+  .hear-option:hover { border-color: var(--blue-accent); color: var(--white); }
+  .hear-option.selected { border-color: var(--blue-accent); background: var(--navy-mid); color: var(--white); }
+
+  /* LICENSE */
+  .license-detail { margin-top: 16px; display: none; animation: fadeUp 0.25s ease; }
+  .license-detail.show { display: block; }
+
+  /* PASSWORD */
+  .password-hint { font-size: 12px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+  .email-badge { display: inline-block; background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 3px; padding: 3px 10px; font-size: 12px; color: var(--gray-light); margin-top: 4px; }
+
+  /* NAV BUTTONS */
+  .form-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 36px; gap: 12px; }
+  .btn-back { display: inline-flex; align-items: center; gap: 8px; background: none; border: 1px solid var(--navy-border); border-radius: 4px; color: var(--gray-light); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; cursor: pointer; padding: 12px 20px; letter-spacing: 0.05em; transition: all 0.15s; }
+  .btn-back:hover { border-color: var(--gray); color: var(--white); }
+  .btn-next { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-accent); color: var(--white); border: none; border-radius: 4px; padding: 14px 28px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.15s; margin-left: auto; }
+  .btn-next:hover { background: var(--blue-hover); }
+
+  /* CITY / POSITION */
+  .search-wrap { position: relative; margin-bottom: 16px; }
+  .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--gray); pointer-events: none; }
+  #citySearch { width: 100%; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; padding: 16px 16px 16px 48px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 300; color: var(--white); outline: none; transition: border-color 0.2s; }
+  #citySearch::placeholder { color: var(--gray); }
+  #citySearch:focus { border-color: var(--blue-accent); }
+  .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .city-grid::-webkit-scrollbar { width: 4px; }
+  .city-grid::-webkit-scrollbar-track { background: var(--navy); }
+  .city-grid::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 2px; }
+  .city-btn { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; padding: 14px 18px; text-align: left; cursor: pointer; transition: all 0.18s ease; color: var(--gray-light); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; display: flex; align-items: center; justify-content: space-between; }
+  .city-btn:hover { border-color: var(--blue-accent); background: var(--navy-mid); color: var(--white); }
+  .city-arrow { opacity: 0; transition: opacity 0.18s; color: var(--blue-accent); }
+  .city-btn:hover .city-arrow { opacity: 1; }
+  .no-results { color: var(--gray); font-size: 14px; padding: 24px 0; text-align: center; display: none; }
+
+  /* POSITION CARDS */
+  .positions-list { display: flex; flex-direction: column; gap: 14px; }
+  .position-card { border: 1px solid var(--navy-border); border-radius: 4px; overflow: hidden; transition: all 0.2s ease; background: var(--navy-card); cursor: pointer; }
+  .position-card:hover { border-color: var(--blue-accent); background: var(--navy-mid); transform: translateX(4px); }
+  .position-card.unavailable { opacity: 0.4; cursor: not-allowed; }
+  .position-card.unavailable:hover { transform: none; border-color: var(--navy-border); background: var(--navy-card); }
+  .position-inner { padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .position-type { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-accent); margin-bottom: 5px; font-weight: 500; }
+  .position-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.06em; color: var(--white); line-height: 1.1; }
+  .position-desc { font-size: 12px; color: var(--gray); margin-top: 4px; }
+  .position-arrow { color: var(--blue-accent); font-size: 20px; opacity: 0; transition: opacity 0.18s; }
+  .position-card:hover .position-arrow { opacity: 1; }
+  .coming-soon-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--disabled-text); border: 1px solid var(--disabled); padding: 6px 14px; border-radius: 3px; }
+
+  /* THUMBNAIL CARDS */
+  .thumb-card { border: 1px solid var(--navy-border); border-radius: 4px; background: var(--navy-card); transition: all 0.2s ease; text-decoration: none; color: inherit; display: block; overflow: hidden; }
+  .thumb-card:hover { border-color: var(--blue-accent); background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .thumb-img-wrap { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--navy-mid); }
+  .thumb-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+  .thumb-card:hover .thumb-img-wrap img { transform: scale(1.03); }
+  .thumb-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .thumb-play-btn { width: 48px; height: 48px; background: rgba(42,109,181,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: transform 0.2s, background 0.2s; }
+  .thumb-card:hover .thumb-play-btn { transform: scale(1.1); background: var(--blue-accent); }
+  .thumb-body { padding: 16px 20px; }
+  .thumb-type { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-accent); font-weight: 500; margin-bottom: 5px; }
+  .thumb-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.04em; color: var(--white); line-height: 1.2; margin-bottom: 4px; }
+  .thumb-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+  /* LEARN MORE CARDS */
+  .learn-card { border: 1px solid var(--navy-border); border-radius: 4px; background: var(--navy-card); transition: all 0.2s ease; text-decoration: none; color: inherit; display: block; }
+  .learn-card:hover { border-color: var(--blue-accent); background: var(--navy-mid); transform: translateX(4px); }
+  .learn-inner { padding: 22px 28px; display: flex; align-items: center; gap: 20px; }
+  .learn-icon { font-size: 26px; flex-shrink: 0; }
+  .learn-info { flex: 1; }
+  .learn-type { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-accent); margin-bottom: 5px; font-weight: 500; }
+  .learn-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.04em; color: var(--white); line-height: 1.2; }
+  .learn-desc { font-size: 12px; color: var(--gray); margin-top: 4px; }
+  .learn-arrow { color: var(--blue-accent); font-size: 18px; opacity: 0; transition: opacity 0.18s; flex-shrink: 0; }
+  .learn-card:hover .learn-arrow { opacity: 1; }
+
+  /* CONFIRMATION */
+  .confirm-wrap { text-align: center; padding: 40px 0; }
+  .confirm-icon { width: 72px; height: 72px; background: rgba(46,175,111,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 32px; }
+  .confirm-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 0.04em; margin-bottom: 12px; }
+  .confirm-sub { font-size: 15px; color: var(--gray-light); line-height: 1.7; max-width: 420px; margin: 0 auto 32px; }
+  .confirm-detail { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; padding: 20px 24px; text-align: left; margin-bottom: 24px; }
+  .confirm-detail-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--navy-border); }
+  .confirm-detail-row:last-child { border-bottom: none; }
+  .confirm-detail-row .clabel { color: var(--gray); }
+  .confirm-detail-row .cvalue { color: var(--white); font-weight: 500; }
+  .confirm-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-website { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-accent); color: var(--white); border: none; border-radius: 4px; padding: 14px 28px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.15s; }
+  .btn-website:hover { background: var(--blue-hover); }
+  .btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--white); border: 1px solid var(--blue-accent); border-radius: 4px; padding: 14px 28px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+  .btn-outline:hover { background: var(--navy-mid); }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--navy-border); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; }
+  .footer-text { font-size: 12px; color: var(--gray); }
+  .footer-link { font-size: 12px; color: var(--gray); text-decoration: none; }
+  .footer-link:hover { color: var(--white); }
+
+  @media (max-width: 600px) {
+    header { padding: 16px 20px; }
+    .page-inner { padding: 40px 20px 80px; }
+    .form-row { grid-template-columns: 1fr; }
+    .hear-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px 20px; flex-direction: column; gap: 12px; text-align: center; }
+    .form-nav { flex-direction: column-reverse; }
+    .btn-next, .btn-back { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="goHome()">
+    <div class="logo-box"><span>MATTHEWS</span></div>
+    <div class="logo-divider"></div>
+    <span class="logo-label">Careers</span>
+  </div>
+  <span class="header-right">Sales &amp; Capital Markets</span>
+</header>
+<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+
+<!-- PAGE 1: CITY -->
+<div class="page active" id="page1">
+  <div class="page-inner">
+    <h1>WHERE DO YOU<br>WANT TO WORK?</h1>
+    <p class="subtitle">Select your desired office location to view available positions.</p>
+    <div class="search-wrap">
+      <svg class="search-icon" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="citySearch" placeholder="Search cities..." oninput="filterCities()" autocomplete="off" />
+    </div>
+    <div class="city-grid" id="cityGrid"></div>
+    <div class="no-results" id="noResults">No cities match your search.</div>
+  </div>
+</div>
+
+<!-- PAGE 2: POSITION -->
+<div class="page" id="page2">
+  <div class="page-inner">
+    <h1>POSITIONS IN<br><span id="selectedCityName" style="color:var(--blue-accent)">—</span></h1>
+    <p class="subtitle">Select the role you'd like to apply for.</p>
+    <div class="positions-list" id="positionsList"></div>
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page1')">← Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: NAME, EMAIL, PHONE -->
+<div class="page" id="page3">
+  <div class="page-inner">
+    <h1>LET'S START<br>WITH YOU</h1>
+    <p class="subtitle">Enter your personal contact information.</p>
+    <div class="form-row">
+      <div>
+        <label>First Name</label>
+        <input type="text" id="firstName" placeholder="John" />
+        <div class="error-msg" id="firstNameErr">Please enter your first name.</div>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input type="text" id="lastName" placeholder="Smith" />
+        <div class="error-msg" id="lastNameErr">Please enter your last name.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Personal Email</label>
+      <input type="email" id="email" placeholder="john.smith@gmail.com" />
+      <div class="error-msg" id="emailErr">Please enter a valid email address.</div>
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" id="phone" placeholder="(555) 555-5555" />
+      <div class="error-msg" id="phoneErr">Please enter your phone number.</div>
+    </div>
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page2')">← Back</button>
+      <button class="btn-next" onclick="validatePage3()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5: SCHOOL -->
+<div class="page" id="page5">
+  <div class="page-inner">
+    <h1>YOUR<br>EDUCATION</h1>
+    <p class="subtitle">Tell us about your educational background.</p>
+    <div class="form-group">
+      <label>School / University</label>
+      <input type="text" id="school" placeholder="e.g. Boston University" />
+      <div class="error-msg" id="schoolErr">Please enter your school.</div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Graduation Month</label>
+        <select id="gradMonth">
+          <option value="">Select month</option>
+          <option>January</option><option>February</option><option>March</option>
+          <option>April</option><option>May</option><option>June</option>
+          <option>July</option><option>August</option><option>September</option>
+          <option>October</option><option>November</option><option>December</option>
+        </select>
+        <div class="error-msg" id="gradMonthErr">Please select a month.</div>
+      </div>
+      <div>
+        <label>Graduation Year</label>
+        <select id="gradYear">
+          <option value="">Select year</option>
+        </select>
+        <div class="error-msg" id="gradYearErr">Please select a year.</div>
+      </div>
+    </div>
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page3')">← Back</button>
+      <button class="btn-next" onclick="validatePage5()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6: HOW DID YOU HEAR -->
+<div class="page" id="page6">
+  <div class="page-inner">
+    <h1>HOW DID YOU<br>HEAR ABOUT US?</h1>
+    <p class="subtitle">Select all that apply.</p>
+    <div class="hear-grid" id="hearGrid">
+      <div class="hear-option" onclick="toggleHear(this)">LinkedIn</div>
+      <div class="hear-option" onclick="toggleHear(this)">Indeed</div>
+      <div class="hear-option" id="referralOption" onclick="toggleHear(this); toggleReferral(this)">Referral from a colleague</div>
+      <div class="hear-option" onclick="toggleHear(this)">Matthews Website</div>
+      <div class="hear-option" onclick="toggleHear(this)">College / University</div>
+      <div class="hear-option" onclick="toggleHear(this)">Job Fair</div>
+      <div class="hear-option" onclick="toggleHear(this)">Social Media</div>
+      <div class="hear-option" id="otherOption" onclick="toggleHear(this); toggleOther(this)">Other</div>
+    </div>
+    <div id="referralBox" style="display:none; margin-top:16px; animation: sweepDown 0.35s cubic-bezier(0.22,1,0.36,1) both;">
+      <label>Who referred you? <span class="optional">(please enter their full name)</span></label>
+      <input type="text" id="referralName" placeholder="e.g. Jane Smith" />
+    </div>
+    <div id="otherBox" style="display:none; margin-top:16px; animation: sweepDown 0.35s cubic-bezier(0.22,1,0.36,1) both;">
+      <label>Please specify <span class="optional">(tell us how you heard about us)</span></label>
+      <input type="text" id="otherText" placeholder="e.g. Friend, podcast, advertisement..." />
+    </div>
+    <div class="error-msg" id="hearErr" style="margin-top:12px">Please select at least one option.</div>
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page5')">← Back</button>
+      <button class="btn-next" onclick="validatePage6()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 7: ELIGIBILITY -->
+<div class="page" id="page7">
+  <div class="page-inner">
+    <h1>WORK<br>ELIGIBILITY</h1>
+    <p class="subtitle">Please answer the following questions honestly.</p>
+    <div class="form-group">
+      <label>Are you legally authorized to work in the United States?</label>
+      <div class="radio-group">
+        <div class="radio-btn" id="authYes" onclick="selectRadio('auth','yes')">Yes</div>
+        <div class="radio-btn" id="authNo" onclick="selectRadio('auth','no')">No</div>
+      </div>
+      <div class="error-msg" id="authErr">Please select an option.</div>
+    </div>
+    <div class="form-group" style="margin-top:28px">
+      <label>Will you now or in the future require visa sponsorship from Matthews to work in the United States?</label>
+      <p style="font-size:12px; color:var(--gray); margin-bottom:10px; line-height:1.5;">e.g. H‑1B, O‑1, TN, E‑3, employment‑based green card sponsorship, or other employment authorization sponsorship</p>
+      <div class="radio-group">
+        <div class="radio-btn" id="visaYes" onclick="selectRadio('visa','yes')">Yes</div>
+        <div class="radio-btn" id="visaNo" onclick="selectRadio('visa','no')">No</div>
+      </div>
+      <div class="error-msg" id="visaErr">Please select an option.</div>
+    </div>
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page6')">← Back</button>
+      <button class="btn-next" onclick="validatePage7()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 8: LICENSE -->
+<div class="page" id="page8">
+  <div class="page-inner">
+    <h1>REAL ESTATE<br>LICENSE</h1>
+    <p class="subtitle">Do you hold an active real estate license?</p>
+    <div class="form-group">
+      <label>Licensed Real Estate Agent?</label>
+      <div class="radio-group">
+        <div class="radio-btn" id="licYes" onclick="selectRadio('lic','yes'); showLicenseDetail(true)">Yes</div>
+        <div class="radio-btn" id="licNo" onclick="selectRadio('lic','no'); showLicenseDetail(false)">No</div>
+      </div>
+      <div class="error-msg" id="licErr">Please select an option.</div>
+    </div>
+    <div class="license-detail" id="licenseDetail">
+      <div class="form-row" style="margin-top:4px">
+        <div>
+          <label>License State</label>
+          <select id="licState">
+            <option value="">Select state</option>
+            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+            <option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option>
+            <option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option>
+            <option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+            <option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option>
+            <option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option>
+            <option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option>
+            <option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+            <option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option>
+            <option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option>
+          </select>
+          <div class="error-msg" id="licStateErr">Please select your license state.</div>
+        </div>
+        <div>
+          <label>License Number</label>
+          <input type="text" id="licNumber" placeholder="e.g. 12345678" />
+          <div class="error-msg" id="licNumberErr">Please enter your license number.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page7')">← Back</button>
+      <button class="btn-next" onclick="validatePage8()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 9: RESUME + LINKEDIN -->
+<div class="page" id="page9">
+  <div class="page-inner">
+    <h1>RESUME &<br>LINKEDIN</h1>
+    <p class="subtitle">Almost there! These fields are optional but strongly encouraged.</p>
+
+    <div style="background:var(--navy-mid); border:1px solid var(--blue-accent); border-radius:4px; padding:14px 18px; margin-bottom:28px; font-size:13px; color:var(--gray-light); line-height:1.6;">
+      <strong style="color:var(--white);">📎 Highly Recommended</strong> — Uploading your resume and LinkedIn profile significantly strengthens your application. While both are optional, we strongly encourage you to include them.
+    </div>
+
+    <div class="form-group">
+      <label>Resume <span class="optional">(optional — highly recommended)</span></label>
+      <div class="file-upload-wrap">
+        <div class="file-upload-area" id="uploadArea">
+          <div class="file-upload-icon">📄</div>
+          <div class="file-upload-text"><strong>Click to upload</strong> or drag and drop</div>
+          <div class="file-upload-sub">PDF, DOC, or DOCX — max 10MB</div>
+          <div class="file-name" id="fileName"></div>
+        </div>
+        <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" onchange="handleFileUpload(this)" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>LinkedIn Profile <span class="optional">(optional — highly recommended)</span></label>
+      <input type="url" id="linkedin" placeholder="https://linkedin.com/in/yourname" />
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page8')">← Back</button>
+      <button class="btn-next" onclick="goToPage('page10')">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 10: CREATE ACCOUNT -->
+<div class="page" id="page10">
+  <div class="page-inner">
+    <h1>CREATE YOUR<br>ACCOUNT</h1>
+    <p class="subtitle">Set a password to create your Matthews Careers account. You'll use this to track your application status.</p>
+    <div class="form-group">
+      <label>Username</label>
+      <p class="password-hint">Your username is your email address:</p>
+      <div class="email-badge" id="usernameBadge">—</div>
+    </div>
+    <div class="form-group" style="margin-top:24px">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Create a password" />
+      <div class="password-hint" style="margin-top:6px">Must be at least 8 characters and include a number.</div>
+      <div class="error-msg" id="passwordErr">Password must be at least 8 characters and include a number.</div>
+    </div>
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" id="confirmPassword" placeholder="Re-enter your password" />
+      <div class="error-msg" id="confirmPasswordErr">Passwords do not match.</div>
+    </div>
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page9')">← Back</button>
+      <button class="btn-next" onclick="validatePage10()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- PAGE 10b: REVIEW -->
+<div class="page" id="pageReview">
+  <div class="page-inner">
+    <div class="eyebrow">Almost Done</div>
+    <h1>REVIEW YOUR<br>APPLICATION</h1>
+    <p class="subtitle">Please review your information before submitting. Click any section to go back and make changes.</p>
+
+    <div id="reviewContent" style="display:flex; flex-direction:column; gap:12px; margin-bottom:36px;"></div>
+
+    <div style="background:var(--navy-mid); border:1px solid var(--navy-border); border-radius:4px; padding:16px 20px; font-size:13px; color:var(--gray-light); line-height:1.6; margin-bottom:36px;">
+      By submitting this application you confirm that all information provided is accurate and complete to the best of your knowledge.
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="goToPage('page10')">← Back</button>
+      <button class="btn-next" onclick="submitApplication()" style="background:var(--success); padding:16px 36px; font-size:14px;">Submit Application ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 11: CONFIRMATION -->
+<div class="page" id="page11">
+  <div class="page-inner">
+    <div class="confirm-wrap">
+      <div class="confirm-icon">✓</div>
+      <div class="eyebrow">Application Submitted</div>
+      <h1>YOU'RE ALL<br>SET!</h1>
+      <p class="confirm-sub">Thank you for applying to Matthews. We've received your application and will be in touch shortly.</p>
+      <div class="confirm-detail" id="confirmDetail"></div>
+
+      <div style="background:var(--navy-card); border:1px solid var(--navy-border); border-radius:4px; padding:20px 24px; margin-bottom:24px; text-align:left;">
+        <div style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue-accent); font-weight:500; margin-bottom:14px;">Your Market Leader</div>
+        <div style="display:flex; align-items:center; gap:20px;">
+          <div style="width:52px; height:52px; border-radius:50%; background:var(--navy-mid); border:1px solid var(--navy-border); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;">👤</div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.06em; color:var(--white); margin-bottom:4px;">Market Leader Name</div>
+            <div style="font-size:12px; color:var(--blue-accent); text-transform:uppercase; letter-spacing:0.12em; font-weight:500; margin-bottom:8px;">Position Title</div>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <a href="mailto:email@matthews.com" style="font-size:13px; color:var(--gray-light); text-decoration:none;">📧 email@matthews.com</a>
+              <a href="tel:+15555555555" style="font-size:13px; color:var(--gray-light); text-decoration:none;">📞 (555) 555-5555</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="confirm-btns">
+        <a href="https://www.matthews.com/about-us/careers" target="_blank" class="btn-website">Visit Matthews Careers ↗</a>
+        <button onclick="goToPage('page12')" class="btn-outline">Learn More About Matthews →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 12: LEARN MORE -->
+<div class="page" id="page12">
+  <div class="page-inner">
+    <div class="eyebrow">Explore Matthews</div>
+    <h1>LEARN MORE<br>ABOUT US</h1>
+    <p class="subtitle">Get to know Matthews — our culture, platform, and the people behind it.</p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:16px; margin-bottom:16px;">
+      <a href="https://www.youtube.com/watch?v=UmvKV3lzy_o" target="_blank" rel="noopener" class="thumb-card">
+        <div class="thumb-img-wrap">
+          <img src="https://img.youtube.com/vi/UmvKV3lzy_o/maxresdefault.jpg" 
+               onerror="this.src='https://img.youtube.com/vi/UmvKV3lzy_o/hqdefault.jpg'" 
+               alt="Summer Training Recap 2025" loading="lazy" />
+          <div class="thumb-play"><div class="thumb-play-btn">▶</div></div>
+        </div>
+        <div class="thumb-body">
+          <div class="thumb-type">Video</div>
+          <div class="thumb-title">Summer Training Recap 2025</div>
+          <div class="thumb-desc">See what our summer training program looks like in action.</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=29LfkeMgs8A" target="_blank" rel="noopener" class="thumb-card">
+        <div class="thumb-img-wrap">
+          <img src="https://img.youtube.com/vi/29LfkeMgs8A/maxresdefault.jpg" 
+               onerror="this.src='https://img.youtube.com/vi/29LfkeMgs8A/hqdefault.jpg'" 
+               alt="The Story Behind Matthews Blue" loading="lazy" />
+          <div class="thumb-play"><div class="thumb-play-btn">▶</div></div>
+        </div>
+        <div class="thumb-body">
+          <div class="thumb-type">Video</div>
+          <div class="thumb-title">The Story Behind Matthews Blue</div>
+          <div class="thumb-desc">Learn about our identity and the values that define our brand.</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=19lNHq91Ogo" target="_blank" rel="noopener" class="thumb-card">
+        <div class="thumb-img-wrap">
+          <img src="https://img.youtube.com/vi/19lNHq91Ogo/maxresdefault.jpg" 
+               onerror="this.src='https://img.youtube.com/vi/19lNHq91Ogo/hqdefault.jpg'" 
+               alt="Power of the Platform" loading="lazy" />
+          <div class="thumb-play"><div class="thumb-play-btn">▶</div></div>
+        </div>
+        <div class="thumb-body">
+          <div class="thumb-type">Video</div>
+          <div class="thumb-title">Power of the Platform</div>
+          <div class="thumb-desc">Understand the tools, resources, and network Matthews provides.</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=sWW1wgJ_2wc" target="_blank" rel="noopener" class="thumb-card">
+        <div class="thumb-img-wrap">
+          <img src="https://img.youtube.com/vi/sWW1wgJ_2wc/maxresdefault.jpg" 
+               onerror="this.src='https://img.youtube.com/vi/sWW1wgJ_2wc/hqdefault.jpg'" 
+               alt="High Risk vs High Reward" loading="lazy" />
+          <div class="thumb-play"><div class="thumb-play-btn">▶</div></div>
+        </div>
+        <div class="thumb-body">
+          <div class="thumb-type">Video</div>
+          <div class="thumb-title">High Risk vs High Reward</div>
+          <div class="thumb-desc">A candid conversation about what it takes to succeed in CRE.</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=CXmM1kEQyiU" target="_blank" rel="noopener" class="thumb-card">
+        <div class="thumb-img-wrap">
+          <img src="https://img.youtube.com/vi/CXmM1kEQyiU/maxresdefault.jpg" 
+               onerror="this.src='https://img.youtube.com/vi/CXmM1kEQyiU/hqdefault.jpg'" 
+               alt="Advice to CRE Brokers" loading="lazy" />
+          <div class="thumb-play"><div class="thumb-play-btn">▶</div></div>
+        </div>
+        <div class="thumb-body">
+          <div class="thumb-type">Video</div>
+          <div class="thumb-title">Advice to CRE Brokers</div>
+          <div class="thumb-desc">Practical advice for those building a career in commercial real estate.</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=RHt0q9s-ZvM" target="_blank" rel="noopener" class="thumb-card">
+        <div class="thumb-img-wrap">
+          <img src="https://img.youtube.com/vi/RHt0q9s-ZvM/maxresdefault.jpg" 
+               onerror="this.src='https://img.youtube.com/vi/RHt0q9s-ZvM/hqdefault.jpg'" 
+               alt="Blueprint for Becoming a Successful Broker" loading="lazy" />
+          <div class="thumb-play"><div class="thumb-play-btn">▶</div></div>
+        </div>
+        <div class="thumb-body">
+          <div class="thumb-type">Podcast — The Fort</div>
+          <div class="thumb-title">Blueprint for Becoming a Successful Broker</div>
+          <div class="thumb-desc">Kyle Matthews on The Fort Podcast — the full story behind building Matthews.</div>
+        </div>
+      </a>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:0;">
+      <a href="https://www.youtube.com/channel/UCnbAQEeit5CJYnaoei5NGIA" target="_blank" rel="noopener" class="learn-card">
+        <div class="learn-inner">
+          <div class="learn-icon">▶</div>
+          <div class="learn-info">
+            <div class="learn-type">YouTube</div>
+            <div class="learn-title">Matthews YouTube Channel</div>
+            <div class="learn-desc">Watch all of our latest videos, training content, and company updates.</div>
+          </div>
+          <div class="learn-arrow">↗</div>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/in/kyle-matthews-ceo/recent-activity/all/" target="_blank" rel="noopener" class="learn-card">
+        <div class="learn-inner">
+          <div class="learn-icon">💼</div>
+          <div class="learn-info">
+            <div class="learn-type">LinkedIn</div>
+            <div class="learn-title">Kyle Matthews — CEO</div>
+            <div class="learn-desc">Follow Kyle Matthews for insights on CRE, leadership, and the industry.</div>
+          </div>
+          <div class="learn-arrow">↗</div>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/company/matthewscre/posts/?feedView=all" target="_blank" rel="noopener" class="learn-card">
+        <div class="learn-inner">
+          <div class="learn-icon">🏢</div>
+          <div class="learn-info">
+            <div class="learn-type">LinkedIn</div>
+            <div class="learn-title">Matthews Company Page</div>
+            <div class="learn-desc">Stay up to date with Matthews news, deals, and company culture.</div>
+          </div>
+          <div class="learn-arrow">↗</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="form-nav" style="margin-top:40px;">
+      <button class="btn-back" onclick="goToPage('page11')">← Back</button>
+      <a href="https://www.matthews.com/about-us/careers" target="_blank" class="btn-next" style="text-decoration:none;">Visit Matthews.com ↗</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-text">© 2025 Matthews Real Estate Investment Services, Inc.</span>
+  <a href="https://www.matthews.com/about-us/careers" target="_blank" class="footer-link">matthews.com/careers ↗</a>
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const cityData = [
+  { city: "Atlanta",          investmentSales: "https://careers-matthews.icims.com/jobs/1258/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1324/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Austin",           investmentSales: "https://careers-matthews.icims.com/jobs/1276/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Birmingham",       investmentSales: "https://careers-matthews.icims.com/jobs/1260/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1326/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Boston",           investmentSales: "https://careers-matthews.icims.com/jobs/1300/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1301/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Charlotte",        investmentSales: "https://careers-matthews.icims.com/jobs/1298/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1299/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Chicago",          investmentSales: "https://careers-matthews.icims.com/jobs/1290/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Cleveland",        investmentSales: "https://careers-matthews.icims.com/jobs/1292/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Columbus",         investmentSales: "https://careers-matthews.icims.com/jobs/1294/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Dallas",           investmentSales: "https://careers-matthews.icims.com/jobs/1296/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1297/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Denver",           investmentSales: "https://careers-matthews.icims.com/jobs/1270/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "El Segundo",       investmentSales: "https://careers-matthews.icims.com/jobs/1314/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Fort Lauderdale",  investmentSales: "https://careers-matthews.icims.com/jobs/1281/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Houston",          investmentSales: "https://careers-matthews.icims.com/jobs/1277/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1278/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Inland Empire",    investmentSales: "https://careers-matthews.icims.com/jobs/1422/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Irvine",           investmentSales: "https://careers-matthews.icims.com/jobs/1266/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Los Angeles",      investmentSales: "https://careers-matthews.icims.com/jobs/1268/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1269/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Miami",            investmentSales: "https://careers-matthews.icims.com/jobs/1318/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Minneapolis",      investmentSales: "https://careers-matthews.icims.com/jobs/1307/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1310/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Nashville",        investmentSales: "https://careers-matthews.icims.com/jobs/1319/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "New Jersey",       investmentSales: "https://careers-matthews.icims.com/jobs/1302/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "New York",         investmentSales: "https://careers-matthews.icims.com/jobs/1264/associate/job?in_iframe=1", capitalMarkets: "https://careers-matthews.icims.com/jobs/1430/capital-markets-associate/job?in_iframe=1", intern: null },
+  { city: "Philadelphia",     investmentSales: "https://careers-matthews.icims.com/jobs/1320/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1416/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Sacramento",       investmentSales: "https://careers-matthews.icims.com/jobs/1308/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "San Diego",        investmentSales: "https://careers-matthews.icims.com/jobs/1309/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "San Francisco",    investmentSales: "https://careers-matthews.icims.com/jobs/1272/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1273/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Scottsdale",       investmentSales: "https://careers-matthews.icims.com/jobs/1312/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Tampa",            investmentSales: "https://careers-matthews.icims.com/jobs/1279/associate/job?in_iframe=1", capitalMarkets: null, intern: null },
+  { city: "Walnut Creek",     investmentSales: "https://careers-matthews.icims.com/jobs/1274/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1275/internship---real-estate-brokerage/job?in_iframe=1" },
+  { city: "Washington D.C.",  investmentSales: "https://careers-matthews.icims.com/jobs/1323/associate/job?in_iframe=1", capitalMarkets: null, intern: "https://careers-matthews.icims.com/jobs/1337/internship---real-estate-brokerage/job?in_iframe=1" },
+];
+
+const positions = [
+  { key: "investmentSales", label: "Investment Sales",  title: "Associate — Investment Sales",       desc: "CRE brokerage, client advisory & deal execution" },
+  { key: "capitalMarkets",  label: "Capital Markets",   title: "Associate — Capital Markets",         desc: "Debt & equity placement, structured finance" },
+  { key: "intern",          label: "Internship",        title: "Internship — Real Estate Brokerage",  desc: "Start your career in commercial real estate with Matthews University — Summer 2027" },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+const appState = { city: '', positionKey: '', positionLabel: '' };
+const radioState = { auth: null, visa: null, lic: null };
+const TOTAL_PAGES = 10;
+
+// ── PROGRESS ──────────────────────────────────────────────────────────────
+function updateProgress(pageNum) {
+  const pct = Math.min(((pageNum - 1) / TOTAL_PAGES) * 100, 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ── PAGE TRANSITIONS ──────────────────────────────────────────────────────
+function goToPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const num = parseInt(pageId.replace('page', ''));
+  updateProgress(num);
+}
+
+function goHome() {
+  goToPage('page1');
+  document.getElementById('citySearch').value = '';
+  renderCities();
+}
+
+// ── CITY ──────────────────────────────────────────────────────────────────
+function filterCities() {
+  const query = document.getElementById('citySearch').value.trim().toLowerCase();
+  const grid = document.getElementById('cityGrid');
+  const noResults = document.getElementById('noResults');
+  const filtered = cityData.filter(d => d.city.toLowerCase().includes(query));
+  grid.innerHTML = '';
+  if (filtered.length === 0) { noResults.style.display = 'block'; return; }
+  noResults.style.display = 'none';
+  filtered.forEach(d => {
+    const btn = document.createElement('button');
+    btn.className = 'city-btn';
+    btn.innerHTML = `<span>${d.city}</span><span class="city-arrow">→</span>`;
+    btn.onclick = () => selectCity(d.city);
+    grid.appendChild(btn);
+  });
+}
+
+function renderCities(filter = '') {
+  document.getElementById('citySearch').value = filter;
+  filterCities();
+}
+
+function selectCity(cityName) {
+  appState.city = cityName;
+  document.getElementById('selectedCityName').textContent = cityName.toUpperCase();
+  const city = cityData.find(d => d.city === cityName);
+  const list = document.getElementById('positionsList');
+  list.innerHTML = '';
+  positions.forEach(pos => {
+    const link = city[pos.key];
+    const card = document.createElement('div');
+    card.className = `position-card ${link ? '' : 'unavailable'}`;
+    card.innerHTML = `
+      <div class="position-inner">
+        <div class="position-info">
+          <div class="position-type">${pos.label}</div>
+          <div class="position-title">${pos.title}</div>
+          <div class="position-desc">${pos.desc}</div>
+        </div>
+        ${link ? '<span class="position-arrow">→</span>' : '<span class="coming-soon-tag">Coming Soon</span>'}
+      </div>`;
+    if (link) card.onclick = () => selectPosition(pos.key, pos.label);
+    list.appendChild(card);
+  });
+  goToPage('page2');
+}
+
+function selectPosition(key, label) {
+  appState.positionKey = key;
+  appState.positionLabel = label;
+  goToPage('page3');
+}
+
+// ── VALIDATION HELPERS ────────────────────────────────────────────────────
+function setError(fieldId, errId, show) {
+  document.getElementById(fieldId)?.classList.toggle('error', show);
+  document.getElementById(errId)?.classList.toggle('show', show);
+}
+function showErr(errId, show) {
+  document.getElementById(errId)?.classList.toggle('show', show);
+}
+
+// ── PAGE VALIDATORS ───────────────────────────────────────────────────────
+function validatePage3() {
+  const fn = document.getElementById('firstName').value.trim();
+  const ln = document.getElementById('lastName').value.trim();
+  const em = document.getElementById('email').value.trim();
+  const ph = document.getElementById('phone').value.trim();
+  setError('firstName','firstNameErr', !fn);
+  setError('lastName','lastNameErr', !ln);
+  setError('email','emailErr', !em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em));
+  setError('phone','phoneErr', !ph);
+  if (fn && ln && em && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) && ph) {
+    document.getElementById('usernameBadge').textContent = em;
+    goToPage('page5');
+  }
+}
+
+function validatePage5() {
+  const school = document.getElementById('school').value.trim();
+  const month = document.getElementById('gradMonth').value;
+  const year = document.getElementById('gradYear').value;
+  setError('school','schoolErr', !school);
+  setError('gradMonth','gradMonthErr', !month);
+  setError('gradYear','gradYearErr', !year);
+  if (school && month && year) goToPage('page6');
+}
+
+function toggleHear(el) { el.classList.toggle('selected'); }
+function toggleOther(el) {
+  const box = document.getElementById('otherBox');
+  box.style.display = el.classList.contains('selected') ? 'block' : 'none';
+  if (!el.classList.contains('selected')) document.getElementById('otherText').value = '';
+}
+function toggleReferral(el) {
+  const box = document.getElementById('referralBox');
+  box.style.display = el.classList.contains('selected') ? 'block' : 'none';
+  if (!el.classList.contains('selected')) document.getElementById('referralName').value = '';
+}
+function validatePage6() {
+  const selected = document.querySelectorAll('.hear-option.selected');
+  showErr('hearErr', selected.length === 0);
+  if (selected.length > 0) goToPage('page7');
+}
+
+function selectRadio(group, val) {
+  radioState[group] = val;
+  document.getElementById(group + 'Yes').classList.toggle('selected', val === 'yes');
+  document.getElementById(group + 'No').classList.toggle('selected', val === 'no');
+}
+
+function validatePage7() {
+  showErr('authErr', !radioState.auth);
+  showErr('visaErr', !radioState.visa);
+  if (radioState.auth && radioState.visa) goToPage('page8');
+}
+
+function showLicenseDetail(show) {
+  document.getElementById('licenseDetail').classList.toggle('show', show);
+}
+
+function validatePage8() {
+  if (!radioState.lic) { showErr('licErr', true); return; }
+  showErr('licErr', false);
+  if (radioState.lic === 'yes') {
+    const state = document.getElementById('licState').value;
+    const num = document.getElementById('licNumber').value.trim();
+    setError('licState','licStateErr', !state);
+    setError('licNumber','licNumberErr', !num);
+    if (!state || !num) return;
+  }
+  goToPage('page9');
+}
+
+function handleFileUpload(input) {
+  const file = input.files[0];
+  if (file) {
+    document.getElementById('uploadArea').classList.add('has-file');
+    document.getElementById('fileName').textContent = '✓ ' + file.name;
+    document.getElementById('uploadArea').querySelector('.file-upload-text').innerHTML = '<strong>File selected</strong>';
+  }
+}
+
+function validatePage10() {
+  const pw = document.getElementById('password').value;
+  const cpw = document.getElementById('confirmPassword').value;
+  const pwValid = pw.length >= 8 && /\d/.test(pw);
+  showErr('passwordErr', !pwValid);
+  showErr('confirmPasswordErr', pw !== cpw);
+  if (pwValid && pw === cpw) showReviewPage();
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────────
+function showReviewPage() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const school = document.getElementById('school').value.trim();
+  const gradMonth = document.getElementById('gradMonth').value;
+  const gradYear = document.getElementById('gradYear').value;
+  const linkedin = document.getElementById('linkedin').value.trim();
+  const resumeFile = document.getElementById('resumeFile').files[0];
+  const hearSelected = [...document.querySelectorAll('.hear-option.selected')].map(el => el.textContent.trim()).join(', ');
+  const referralName = document.getElementById('referralName').value.trim();
+  const otherText = document.getElementById('otherText').value.trim();
+  const licState = radioState.lic === 'yes' ? document.getElementById('licState').value : null;
+  const licNumber = radioState.lic === 'yes' ? document.getElementById('licNumber').value.trim() : null;
+
+  const sections = [
+    { title: 'Position', page: 'page2', rows: [
+      ['Location', appState.city],
+      ['Role', appState.positionLabel],
+    ]},
+    { title: 'Personal Info', page: 'page3', rows: [
+      ['Name', `${firstName} ${lastName}`],
+      ['Email', email],
+      ['Phone', phone],
+    ]},
+    { title: 'Education', page: 'page5', rows: [
+      ['School', school],
+      ['Graduation', `${gradMonth} ${gradYear}`],
+    ]},
+    { title: 'How You Heard', page: 'page6', rows: [
+      ['Source', hearSelected + (referralName ? ` — ${referralName}` : '') + (otherText ? ` — ${otherText}` : '')],
+    ]},
+    { title: 'Work Eligibility', page: 'page7', rows: [
+      ['Authorized to Work', radioState.auth === 'yes' ? 'Yes' : 'No'],
+      ['Visa Sponsorship', radioState.visa === 'yes' ? 'Yes' : 'No'],
+    ]},
+    { title: 'Real Estate License', page: 'page8', rows: [
+      ['Licensed', radioState.lic === 'yes' ? `Yes — ${licState} #${licNumber}` : 'No'],
+    ]},
+    { title: 'Resume & LinkedIn', page: 'page9', rows: [
+      ['Resume', resumeFile ? `✓ ${resumeFile.name}` : 'Not uploaded'],
+      ['LinkedIn', linkedin || 'Not provided'],
+    ]},
+  ];
+
+  const container = document.getElementById('reviewContent');
+  container.innerHTML = sections.map(s => `
+    <div style="background:var(--navy-card); border:1px solid var(--navy-border); border-radius:4px; overflow:hidden;">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 20px; border-bottom:1px solid var(--navy-border);">
+        <div style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue-accent); font-weight:500;">${s.title}</div>
+        <button onclick="goToPage('${s.page}')" style="background:none; border:none; color:var(--gray); font-size:12px; cursor:pointer; font-family:'Inter',sans-serif; letter-spacing:0.05em;">Edit →</button>
+      </div>
+      ${s.rows.map(([label, value]) => `
+        <div style="display:flex; justify-content:space-between; padding:10px 20px; font-size:13px; border-bottom:1px solid rgba(30,58,95,0.5);">
+          <span style="color:var(--gray);">${label}</span>
+          <span style="color:var(--white); font-weight:400; text-align:right; max-width:60%;">${value}</span>
+        </div>`).join('')}
+    </div>`).join('');
+
+  goToPage('pageReview');
+}
+
+function submitApplication() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const detail = document.getElementById('confirmDetail');
+  detail.innerHTML = [
+    ['Name', `${firstName} ${lastName}`],
+    ['Email', email],
+    ['Location', appState.city],
+    ['Position', appState.positionLabel],
+    ['School', document.getElementById('school').value.trim()],
+    ['Work Authorized', radioState.auth === 'yes' ? 'Yes' : 'No'],
+    ['Visa Sponsorship Needed', radioState.visa === 'yes' ? 'Yes' : 'No'],
+    ['Real Estate License', radioState.lic === 'yes' ? `Yes — ${document.getElementById('licState').value} #${document.getElementById('licNumber').value}` : 'No'],
+  ].map(([l, v]) => `<div class="confirm-detail-row"><span class="clabel">${l}</span><span class="cvalue">${v}</span></div>`).join('');
+  goToPage('page11');
+  document.getElementById('progressBar').style.width = '100%';
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+const yearSelect = document.getElementById('gradYear');
+const currentYear = new Date().getFullYear();
+for (let y = currentYear + 4; y >= currentYear - 10; y--) {
+  const opt = document.createElement('option');
+  opt.value = y; opt.textContent = y;
+  yearSelect.appendChild(opt);
+}
+
+const uploadArea = document.getElementById('uploadArea');
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadArea.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) handleFileUpload({ files: [file] });
+});
+
+renderCities();
+updateProgress(1);
+</script>
+</body>
+</html>
