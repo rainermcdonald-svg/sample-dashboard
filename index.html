@@ -28,7 +28,21 @@
     --c-disposition: #6B8FA8;
   }
 
-  html, body { height: 100%; background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 400; overflow: hidden; }
+  /* LIGHT MODE */
+  body.light-mode {
+    --navy:        #F0F4F8;
+    --navy-mid:    #E2EAF2;
+    --navy-card:   #FFFFFF;
+    --navy-border: #C8D9EC;
+    --blue-accent: #2A6DB5;
+    --blue-hover:  #1E5A9E;
+    --blue-dim:    rgba(42,109,181,0.10);
+    --white:       #0B1F3A;
+    --gray:        #6B8FA8;
+    --gray-light:  #3A5F82;
+  }
+
+  html, body { height: 100%; background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400; overflow: hidden; transition: background 0.2s, color 0.2s; }
   .app { display: flex; height: 100vh; }
 
   /* SIDEBAR */
@@ -37,15 +51,15 @@
   .sidebar-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: 8px; }
   .sidebar-scroll::-webkit-scrollbar { width: 3px; }
   .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 2px; }
-  .sidebar-section { padding: 14px 16px 5px; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); font-weight: 500; }
-  .sidebar-section-toggle { cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding-right: 18px; user-select: none; transition: color 0.15s; font-size: 11px; letter-spacing: 0.14em; color: var(--gray-light); }
+  .sidebar-section { padding: 14px 16px 5px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); font-weight: 500; }
+  .sidebar-section-toggle { cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding-right: 18px; user-select: none; transition: color 0.15s; font-size: 12px; letter-spacing: 0.14em; color: var(--gray-light); }
   .sidebar-section-toggle:hover { color: var(--white); }
   .section-caret { font-size: 10px; transition: transform 0.2s; }
   .section-caret.collapsed { transform: rotate(-90deg); }
   .sidebar-sub { overflow: hidden; transition: max-height 0.3s ease; max-height: 600px; }
   .sidebar-sub.collapsed { max-height: 0; }
   .nav-sub { margin-left: 8px; padding-left: 12px; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 7px 16px; margin: 1px 8px; border-radius: 4px; cursor: pointer; font-size: 13px; color: var(--gray-light); transition: all 0.15s; user-select: none; border: 1px solid transparent; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 7px 16px; margin: 1px 8px; border-radius: 4px; cursor: pointer; font-size: 14px; color: var(--gray-light); transition: all 0.15s; user-select: none; border: 1px solid transparent; }
   .nav-item:hover { background: var(--navy-mid); color: var(--white); }
   .nav-item.active { background: var(--blue-dim); color: var(--white); border-color: rgba(42,109,181,0.3); }
   .nav-icon { font-size: 14px; width: 18px; text-align: center; flex-shrink: 0; }
@@ -54,25 +68,27 @@
   .sidebar-user { padding: 14px 18px; border-top: 1px solid var(--navy-border); display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
   .logo-box { background: var(--white); padding: 5px 9px; flex-shrink: 0; }
   .logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--navy); letter-spacing: 0.08em; }
+  body.light-mode .logo-box { background: var(--blue-accent); }
+  body.light-mode .logo-box span { color: #FFFFFF; }
   .logo-meta { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); line-height: 1.3; }
   .logo-meta strong { display: block; color: var(--gray-light); font-size: 10px; }
   .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--blue-accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
-  .user-name { font-size: 12px; font-weight: 500; color: var(--white); }
-  .user-role { font-size: 10px; color: var(--gray); }
+  .user-name { font-size: 13px; font-weight: 500; color: var(--white); }
+  .user-role { font-size: 11px; color: var(--gray); }
 
   /* MAIN */
   .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
   .topbar { height: 56px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; border-bottom: 1px solid var(--navy-border); }
-  .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.08em; }
+  .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.08em; }
   .topbar-right { display: flex; align-items: center; gap: 12px; }
   .topbar-search { display: flex; align-items: center; gap: 8px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; padding: 7px 14px; }
-  .topbar-search input { background: none; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--white); width: 200px; }
+  .topbar-search input { background: none; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--white); width: 200px; }
   .topbar-search input::placeholder { color: var(--gray); }
-  .btn-ghost { display: flex; align-items: center; gap: 7px; background: none; border: 1px solid var(--navy-border); border-radius: 4px; padding: 7px 14px; color: var(--gray-light); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .btn-ghost { display: flex; align-items: center; gap: 7px; background: none; border: 1px solid var(--navy-border); border-radius: 4px; padding: 7px 14px; color: var(--gray-light); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .btn-ghost:hover { border-color: var(--blue-accent); color: var(--white); }
 
   /* NEW CANDIDATE BUTTON */
-  .btn-new-candidate { display: flex; align-items: center; gap: 7px; background: var(--blue-accent); border: none; border-radius: 4px; padding: 8px 16px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+  .btn-new-candidate { display: flex; align-items: center; gap: 7px; background: var(--blue-accent); border: none; border-radius: 4px; padding: 8px 16px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
   .btn-new-candidate:hover { background: var(--blue-hover); }
 
   /* NEW CANDIDATE MODAL */
@@ -94,43 +110,43 @@
   .nc-upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .nc-upload-icon { font-size: 36px; margin-bottom: 12px; }
   .nc-upload-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
-  .nc-upload-sub { font-size: 12px; color: var(--gray); }
-  .nc-upload-filename { margin-top: 12px; font-size: 12px; color: var(--blue-accent); font-weight: 500; }
+  .nc-upload-sub { font-size: 13px; color: var(--gray); }
+  .nc-upload-filename { margin-top: 12px; font-size: 13px; color: var(--blue-accent); font-weight: 500; }
 
   /* PARSING STATE */
   .nc-parsing { text-align: center; padding: 32px 0; }
   .nc-parsing-spinner { width: 40px; height: 40px; border: 3px solid var(--navy-border); border-top-color: var(--blue-accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .nc-parsing-text { font-size: 14px; color: var(--gray-light); }
-  .nc-parsing-sub { font-size: 12px; color: var(--gray); margin-top: 6px; }
+  .nc-parsing-sub { font-size: 13px; color: var(--gray); margin-top: 6px; }
 
   /* REVIEW FORM */
   .nc-review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding: 12px 16px; background: rgba(64,208,144,0.08); border: 1px solid rgba(64,208,144,0.25); border-radius: 4px; }
   .nc-review-header-icon { font-size: 20px; }
-  .nc-review-header-text { font-size: 13px; color: var(--gray-light); }
+  .nc-review-header-text { font-size: 14px; color: var(--gray-light); }
   .nc-review-header-text strong { color: #40D090; }
   .nc-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .nc-form-field { display: flex; flex-direction: column; gap: 5px; }
   .nc-form-field.full { grid-column: 1 / -1; }
-  .nc-form-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); font-weight: 600; }
-  .nc-form-input { background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 3px; padding: 9px 12px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; transition: border-color 0.15s; }
+  .nc-form-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); font-weight: 600; }
+  .nc-form-input { background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 3px; padding: 9px 12px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.15s; }
   .nc-form-input:focus { border-color: var(--blue-accent); }
   .nc-form-input.ai-filled { border-color: rgba(64,208,144,0.4); background: rgba(64,208,144,0.05); }
-  .nc-form-select { background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 3px; padding: 9px 12px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; cursor: pointer; }
+  .nc-form-select { background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 3px; padding: 9px 12px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; cursor: pointer; }
   .nc-form-select option { background: var(--navy-mid); }
-  .nc-ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; letter-spacing: 0.1em; font-weight: 600; color: #40D090; text-transform: uppercase; margin-left: 6px; opacity: 0.8; }
+  .nc-ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; letter-spacing: 0.1em; font-weight: 600; color: #40D090; text-transform: uppercase; margin-left: 6px; opacity: 0.8; }
 
   /* ERROR */
-  .nc-error { background: rgba(192,64,64,0.12); border: 1px solid rgba(192,64,64,0.3); border-radius: 4px; padding: 12px 16px; font-size: 13px; color: #F07070; margin-bottom: 16px; }
+  .nc-error { background: rgba(192,64,64,0.12); border: 1px solid rgba(192,64,64,0.3); border-radius: 4px; padding: 12px 16px; font-size: 14px; color: #F07070; margin-bottom: 16px; }
 
-  .btn-nc-add { background: var(--blue-accent); border: none; border-radius: 3px; padding: 9px 22px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .btn-nc-add { background: var(--blue-accent); border: none; border-radius: 3px; padding: 9px 22px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
   .btn-nc-add:hover { background: var(--blue-hover); }
-  .btn-nc-cancel { background: none; border: 1px solid var(--navy-border); border-radius: 3px; padding: 9px 18px; color: var(--gray-light); font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .btn-nc-cancel { background: none; border: 1px solid var(--navy-border); border-radius: 3px; padding: 9px 18px; color: var(--gray-light); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; transition: all 0.15s; }
   .btn-nc-cancel:hover { border-color: var(--gray-light); color: var(--white); }
 
   /* METRICS & ANALYTICS */
   .metrics-tabs { display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap; }
-  .metrics-tab { padding: 7px 16px; border-radius: 3px; border: 1px solid var(--navy-border); font-size: 12px; font-weight: 500; color: var(--gray-light); cursor: pointer; transition: all 0.15s; user-select: none; }
+  .metrics-tab { padding: 7px 16px; border-radius: 3px; border: 1px solid var(--navy-border); font-size: 13px; font-weight: 500; color: var(--gray-light); cursor: pointer; transition: all 0.15s; user-select: none; }
   .metrics-tab:hover { border-color: var(--blue-accent); color: var(--white); }
   .metrics-tab.active { background: var(--blue-accent); border-color: var(--blue-accent); color: var(--white); }
   .metrics-page { display: none; }
@@ -143,22 +159,22 @@
   .metrics-goal-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.08em; color: var(--white); }
   .metrics-goal-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 16px; }
   .metrics-goal-row { display: flex; align-items: center; gap: 16px; }
-  .metrics-goal-label { font-size: 12px; color: var(--gray-light); width: 200px; flex-shrink: 0; }
-  .metrics-goal-input { background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 3px; padding: 7px 11px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; outline: none; width: 80px; text-align: center; transition: border-color 0.15s; }
+  .metrics-goal-label { font-size: 13px; color: var(--gray-light); width: 200px; flex-shrink: 0; }
+  .metrics-goal-input { background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 3px; padding: 7px 11px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; outline: none; width: 80px; text-align: center; transition: border-color 0.15s; }
   .metrics-goal-input:focus { border-color: var(--blue-accent); }
   .metrics-goal-progress-wrap { flex: 1; display: flex; align-items: center; gap: 10px; }
   .metrics-progress-bar-bg { flex: 1; height: 6px; background: var(--navy-mid); border-radius: 3px; overflow: hidden; }
   .metrics-progress-bar { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
-  .metrics-progress-pct { font-size: 12px; font-weight: 600; width: 36px; text-align: right; flex-shrink: 0; }
-  .metrics-progress-count { font-size: 12px; color: var(--gray); width: 60px; flex-shrink: 0; }
+  .metrics-progress-pct { font-size: 13px; font-weight: 600; width: 36px; text-align: right; flex-shrink: 0; }
+  .metrics-progress-count { font-size: 13px; color: var(--gray); width: 60px; flex-shrink: 0; }
   .metrics-goal-period { display: flex; gap: 6px; }
-  .metrics-period-btn { padding: 4px 10px; border-radius: 3px; border: 1px solid var(--navy-border); font-size: 11px; color: var(--gray-light); cursor: pointer; transition: all 0.12s; }
+  .metrics-period-btn { padding: 4px 10px; border-radius: 3px; border: 1px solid var(--navy-border); font-size: 12px; color: var(--gray-light); cursor: pointer; transition: all 0.12s; }
   .metrics-period-btn:hover { border-color: var(--blue-accent); color: var(--white); }
   .metrics-period-btn.active { background: var(--blue-dim); border-color: var(--blue-accent); color: var(--white); font-weight: 600; }
 
   /* Conversion funnel */
   .conversion-position-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
-  .conversion-pos-tab { padding: 6px 16px; border-radius: 3px; border: 1px solid var(--navy-border); font-size: 12px; color: var(--gray-light); cursor: pointer; transition: all 0.15s; }
+  .conversion-pos-tab { padding: 6px 16px; border-radius: 3px; border: 1px solid var(--navy-border); font-size: 13px; color: var(--gray-light); cursor: pointer; transition: all 0.15s; }
   .conversion-pos-tab:hover { border-color: var(--blue-accent); color: var(--white); }
   .conversion-pos-tab.active { background: var(--blue-dim); border-color: var(--blue-accent); color: var(--white); font-weight: 600; }
   .conversion-funnel { display: flex; flex-direction: column; gap: 6px; }
@@ -174,7 +190,7 @@
   /* Dashboard charts */
   .metrics-dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
   .metrics-dash-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; padding: 18px 20px; }
-  .metrics-dash-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); font-weight: 600; margin-bottom: 14px; }
+  .metrics-dash-title { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); font-weight: 600; margin-bottom: 14px; }
   .mini-bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
   .mini-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
   .mini-bar { width: 100%; border-radius: 2px 2px 0 0; min-height: 3px; }
@@ -213,13 +229,13 @@
 
   /* SECTION */
   .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.08em; }
-  .section-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.08em; }
+  .section-sub { font-size: 13px; color: var(--gray); margin-top: 2px; }
 
   /* TABLE */
   .table-wrap { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 4px; overflow: hidden; }
   .filter-bar { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-bottom: 1px solid var(--navy-border); flex-wrap: wrap; }
-  .filter-pill { padding: 4px 12px; border-radius: 20px; border: 1px solid var(--navy-border); font-size: 11px; font-weight: 500; letter-spacing: 0.05em; color: var(--gray-light); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .filter-pill { padding: 4px 12px; border-radius: 20px; border: 1px solid var(--navy-border); font-size: 12px; font-weight: 500; letter-spacing: 0.05em; color: var(--gray-light); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .filter-pill:hover { border-color: var(--blue-accent); color: var(--white); }
   .filter-pill.active { background: var(--blue-accent); border-color: var(--blue-accent); color: var(--white); }
   .filter-select { background: var(--navy-mid); border: 1px solid var(--navy-border); border-radius: 4px; padding: 5px 10px; color: var(--gray-light); font-family: 'DM Sans', sans-serif; font-size: 12px; outline: none; cursor: pointer; }
@@ -286,6 +302,21 @@
     border-radius: 6px; display: flex; flex-direction: column;
     z-index: 201; overflow: hidden;
     animation: panelIn 0.25s cubic-bezier(0.22,1,0.36,1);
+    transition: max-width 0.25s ease;
+  }
+  .detail-panel.has-resume { max-width: 1500px; }
+  .detail-resume {
+    width: 420px; flex-shrink: 0; border-left: 1px solid var(--navy-border);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .detail-resume-header {
+    padding: 12px 16px; border-bottom: 1px solid var(--navy-border);
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--blue-accent); font-weight: 600; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .detail-resume iframe {
+    flex: 1; border: none; width: 100%; height: 100%;
   }
   @keyframes panelIn { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
@@ -333,7 +364,7 @@
   .detail-right-bottom { border-top: 1px solid var(--navy-border); padding: 16px 24px; flex-shrink: 0; }
 
   /* section labels */
-  .detail-section-title { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-accent); font-weight: 600; margin-bottom: 12px; }
+  .detail-section-title { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-accent); font-weight: 600; margin-bottom: 12px; }
   .detail-section { margin-bottom: 24px; }
   .detail-row { display: flex; justify-content: space-between; align-items: flex-start; font-size: 13px; padding: 7px 0; border-bottom: 1px solid rgba(30,58,95,0.5); gap: 12px; }
   .detail-row:last-child { border-bottom: none; }
@@ -776,6 +807,9 @@
         <div class="user-name">Rainer McDonald</div>
         <div class="user-role">Senior Recruiter</div>
       </div>
+      <button onclick="toggleLightMode()" id="lightModeBtn" title="Toggle light/dark mode"
+        style="background:none;border:none;color:var(--gray);cursor:pointer;font-size:15px;padding:4px;transition:color 0.15s;flex-shrink:0"
+        onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--gray)'">🌙</button>
       <button onclick="openApiKeyModal()" title="Set Anthropic API Key for resume parsing"
         style="background:none;border:none;color:var(--gray);cursor:pointer;font-size:15px;padding:4px;transition:color 0.15s;flex-shrink:0"
         onmouseover="this.style.color='var(--blue-accent)'" onmouseout="this.style.color='var(--gray)'">⚙️</button>
@@ -928,7 +962,6 @@
               <th class="sortable" onclick="setSortCol('name')">Name <span class="sort-arrow" id="sarr-name">↕</span></th>
               <th class="sortable" onclick="setSortCol('email')">Email <span class="sort-arrow" id="sarr-email">↕</span></th>
               <th class="sortable" onclick="setSortCol('position')">Position <span class="sort-arrow" id="sarr-position">↕</span></th>
-              <th class="sortable" onclick="setSortCol('city')">City <span class="sort-arrow" id="sarr-city">↕</span></th>
               <th class="sortable" onclick="setSortCol('submitted')">App Date <span class="sort-arrow" id="sarr-submitted">↕</span></th>
               <th class="sortable" onclick="setSortCol('lastContact')">Last Contact <span class="sort-arrow" id="sarr-lastContact">↕</span></th>
               <th class="sortable" onclick="setSortCol('stage')">Stage <span class="sort-arrow" id="sarr-stage">↕</span></th>
@@ -1891,6 +1924,15 @@ Download at: https://teams.microsoft.com/downloads</textarea></div>
       </div>
 
     </div>
+    <!-- RESUME PREVIEW -->
+    <div class="detail-resume" id="detailResumeCol" style="display:none">
+      <div class="detail-resume-header">
+        <span>📄 Resume</span>
+        <span id="detailResumeFilename" style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--gray);text-transform:none;letter-spacing:0"></span>
+      </div>
+      <iframe id="detailResumeFrame" title="Resume Preview"></iframe>
+    </div>
+
   </div>
 </div><!-- /detail-panel -->
 </div><!-- /detail-overlay -->
@@ -2016,11 +2058,18 @@ const LASTNAMES = ['Whitfield','Alvarez','Chen','Brooks','Nguyen','Patel','Robin
 function ri(a){return a[Math.floor(Math.random()*a.length)];}
 function rb(p=.5){return Math.random()<p;}
 function rDate(d){const x=new Date();x.setDate(x.getDate()-Math.floor(Math.random()*d));return x.toISOString().split('T')[0];}
-function fmt(iso){return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function fmt(iso){
+  if(!iso) return '—';
+  // Parse as local noon to avoid UTC midnight shifting date back by timezone offset
+  const d = iso.includes('T') ? new Date(iso) : new Date(iso + 'T12:00:00');
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
 function daysSince(iso){
-  const diff=Math.floor((new Date()-new Date(iso))/(1000*60*60*24));
-  if(diff===0) return 'today';
-  if(diff===1) return '1 day ago';
+  if(!iso) return '';
+  const d = iso.includes('T') ? new Date(iso) : new Date(iso + 'T12:00:00');
+  const diff = Math.floor((new Date() - d) / (1000*60*60*24));
+  if(diff === 0) return 'today';
+  if(diff === 1) return '1 day ago';
   return `${diff}d ago`;
 }
 const STAGE_W=[
@@ -2168,6 +2217,23 @@ function saveApiKeyFromModal() {
   setTimeout(() => closeApiKeyModal(), 800);
 }
 
+function toggleLightMode() {
+  const isLight = document.body.classList.toggle('light-mode');
+  localStorage.setItem('matthews_light_mode', isLight ? '1' : '0');
+  document.getElementById('lightModeBtn').textContent = isLight ? '☀️' : '🌙';
+}
+
+// Restore theme preference on load
+(()=>{
+  if(localStorage.getItem('matthews_light_mode') === '1') {
+    document.body.classList.add('light-mode');
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('lightModeBtn');
+      if(btn) btn.textContent = '☀️';
+    });
+  }
+})();
+
 function clearAllData() {
   localStorage.removeItem(STORAGE_KEY_APPLICANTS);
   localStorage.removeItem(STORAGE_KEY_PROSPECTS);
@@ -2192,7 +2258,7 @@ const weekTargetOverrides = {};
 // Try loading from storage first — if nothing saved, start empty (no seed data)
 const _hasStoredData = loadData();
 
-// Start clean — add real candidates via New Candidate button
+// Start clean — add real candidates via the New Candidate button
 
 applicants.sort((a,b)=>b.submitted.localeCompare(a.submitted));
 
@@ -2698,7 +2764,6 @@ function renderTable(){
       <td class="name-cell">${a.firstName} ${a.lastName}</td>
       <td style="font-size:12px">${a.email}</td>
       <td>${a.position}</td>
-      <td>${a.city}</td>
       <td style="font-size:12px;white-space:nowrap">${fmt(a.submitted)}</td>
       <td style="font-size:12px;white-space:nowrap;color:${a.lastContact?'var(--gray-light)':'var(--gray)'}">${a.lastContact?`${fmt(a.lastContact)} <span style="color:var(--gray);font-size:11px">(${daysSince(a.lastContact)})</span>`:'—'}</td>
       <td>${stagePill(a.stageKey)}</td>
@@ -3087,8 +3152,35 @@ function openDetail(id, navList){
 
   // Docs
   document.getElementById('dp-docs').innerHTML=`
-    <div class="detail-row"><span class="detail-key">Resume</span><span class="detail-val">${a.resume?`📄 <a href="#">${a.resume}</a>`:'<span style="color:var(--gray)">Not uploaded</span>'}</span></div>
+    <div class="detail-row"><span class="detail-key">Resume</span><span class="detail-val">${a.resume?`📄 ${a.resume}`:'<span style="color:var(--gray)">Not uploaded</span>'}</span></div>
     <div class="detail-row"><span class="detail-key">LinkedIn</span><span class="detail-val">${a.linkedin?`<a href="${a.linkedin}" target="_blank">View Profile →</a>`:'<span style="color:var(--gray)">Not provided</span>'}</span></div>`;
+
+  // Resume preview column
+  const resumeCol   = document.getElementById('detailResumeCol');
+  const resumeFrame = document.getElementById('detailResumeFrame');
+  const panel       = document.getElementById('detailPanel');
+
+  // Revoke any previous blob URL to free memory
+  if(resumeFrame._blobUrl) { URL.revokeObjectURL(resumeFrame._blobUrl); resumeFrame._blobUrl = null; }
+
+  if(a.resumeData?.isPdf && a.resumeData?.base64) {
+    // Convert base64 back to blob and create an object URL for the iframe
+    const byteChars = atob(a.resumeData.base64);
+    const byteNums  = new Uint8Array(byteChars.length);
+    for(let i=0; i<byteChars.length; i++) byteNums[i] = byteChars.charCodeAt(i);
+    const blob      = new Blob([byteNums], { type: 'application/pdf' });
+    const blobUrl   = URL.createObjectURL(blob);
+    resumeFrame._blobUrl = blobUrl;
+    resumeFrame.src = blobUrl;
+    document.getElementById('detailResumeFilename').textContent = a.resume || '';
+    resumeCol.style.display = 'flex';
+    resumeCol.style.flexDirection = 'column';
+    panel.classList.add('has-resume');
+  } else {
+    resumeCol.style.display = 'none';
+    resumeFrame.src = '';
+    panel.classList.remove('has-resume');
+  }
 
   renderContacts();
   renderScheduled();
@@ -3106,6 +3198,11 @@ function handleOverlayClick(e){
 function closeDetail(){
   closeScheduleModal();
   closeSendEmailModal();
+  // Clean up resume blob URL to free memory
+  const frame = document.getElementById('detailResumeFrame');
+  if(frame?._blobUrl) { URL.revokeObjectURL(frame._blobUrl); frame._blobUrl = null; frame.src = ''; }
+  document.getElementById('detailPanel').classList.remove('has-resume');
+  document.getElementById('detailResumeCol').style.display = 'none';
   document.getElementById('detailOverlay').classList.remove('open');
   currentApplicant=null;
 }
@@ -3122,8 +3219,10 @@ function selectNcPosition(el){
   if(sel) sel.value = pos;
 }
 
-let ncCurrentType = null; // 'senior' | 'Investment Sales' | 'Capital Markets' | 'Internship'
-let ncInputMode = 'upload'; // 'upload' | 'manual'
+let ncCurrentType = null;
+let ncInputMode = 'upload';
+let ncUploadedFileName = null;
+let ncUploadedFileData = null; // base64 of uploaded resume
 
 function openNewCandidateModal(){
   resetNcModal();
@@ -3200,6 +3299,8 @@ function setNcInputMode(mode) {
 function resetNcModal(){
   ncCurrentType = null;
   ncInputMode = 'upload';
+  ncUploadedFileName = null;
+  ncUploadedFileData = null;
   document.getElementById('ncModalTitle').textContent = 'New Candidate';
   ['ncStepSenior','ncStepUpload','ncStepParsing','ncStepReview'].forEach(id => {
     const el = document.getElementById(id);
@@ -3267,6 +3368,7 @@ function resetNcModal(){
 
 async function handleResumeFile(file){
   if(!file) return;
+  ncUploadedFileName = file.name; // store filename
 
   // Check for API key
   if(!getApiKey()) {
@@ -3291,6 +3393,9 @@ async function handleResumeFile(file){
       reader.onerror = rej;
       reader.readAsDataURL(file);
     });
+
+    // Store for later use in candidate record
+    ncUploadedFileData = { base64, mediaType: isPdf ? 'application/pdf' : 'text/plain', isPdf };
 
     document.getElementById('ncParsingStatus').textContent = 'Extracting candidate information…';
 
@@ -3404,7 +3509,8 @@ function addNewCandidate(){
     gradMonth: g('ncGradMonth'+suffix) || '',
     gradYear:  g('ncGradYear'+suffix)  || '',
     linkedin:  g('ncLinkedin'+suffix)  || null,
-    resume: null, source,
+    resume: ncUploadedFileName || null,
+    resumeData: ncUploadedFileData || null, source,
     submitted: today, lastContact: null,
     notes: [], contacts: [], schedules: [],
     week: 0,
@@ -4424,20 +4530,68 @@ function confirmSchedule(){
   const dateObj=new Date(dt);
   const displayDate=dateObj.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   const displayTime=dateObj.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-  currentApplicant.schedules.push({
+
+  const a = currentApplicant;
+
+  // Auto-advance stage/subStatus to Scheduled based on activity type
+  const isCall      = type === '📞 Phone Call' || type === '📹 Video Call';
+  const isInterview = type === '🤝 In-Person Interview';
+
+  if(isCall) {
+    // Move to Preliminary Call: Scheduled if they haven't reached that stage yet,
+    // or are in Prelim Call but not yet Scheduled/Complete
+    const prelim = ['Application'];
+    const canAdvanceToPrelim = prelim.includes(a.stageKey)
+      || (a.stageKey === 'Preliminary Call' && a.subStatus === 'Invited');
+    if(canAdvanceToPrelim) {
+      const prev = { stageKey: a.stageKey, subStatus: a.subStatus };
+      a.stageKey  = 'Preliminary Call';
+      a.subStatus = 'Scheduled';
+      a.lastContact = new Date().toISOString().split('T')[0];
+      // Log the stage change
+      a.contacts.push({
+        type: '📅 Scheduled',
+        note: `${type} scheduled for ${displayDate} at ${displayTime}${note?' — '+note:''}`,
+        date: fmt(a.lastContact), isoDate: a.lastContact,
+        stageKey: a.stageKey, subStatus: a.subStatus
+      });
+    }
+  } else if(isInterview) {
+    // Move to Interview: Scheduled if they're in Prelim Call Complete or Interview: Invited
+    const canAdvanceToInterview = (a.stageKey === 'Preliminary Call' && a.subStatus === 'Complete')
+      || (a.stageKey === 'Interview' && a.subStatus === 'Invited')
+      || a.stageKey === 'Application';
+    if(canAdvanceToInterview) {
+      a.stageKey  = 'Interview';
+      a.subStatus = 'Scheduled';
+      a.lastContact = new Date().toISOString().split('T')[0];
+      a.contacts.push({
+        type: '📅 Scheduled',
+        note: `${type} scheduled for ${displayDate} at ${displayTime}${note?' — '+note:''}`,
+        date: fmt(a.lastContact), isoDate: a.lastContact,
+        stageKey: a.stageKey, subStatus: a.subStatus
+      });
+    }
+  }
+
+  a.schedules.push({
     id: Date.now(),
     type, note,
     isoDate: dt,
     displayDate, displayTime,
-    stageKey: currentApplicant.stageKey,
-    subStatus: currentApplicant.subStatus
+    stageKey: a.stageKey,
+    subStatus: a.subStatus
   });
+
   // Sort schedules by date ascending
-  currentApplicant.schedules.sort((a,b)=>a.isoDate.localeCompare(b.isoDate));
+  a.schedules.sort((a,b)=>a.isoDate.localeCompare(b.isoDate));
+  saveData();
   closeScheduleModal();
   renderScheduled();
+  openDetail(a.id);
   // Refresh overview if visible so the week schedule updates
   if(document.querySelector('.view.active')?.id==='view-overview') renderOverview();
+  if(document.querySelector('.view.active')?.id==='view-applicants') renderTable();
 }
 
 function deleteSchedule(scheduleId){
