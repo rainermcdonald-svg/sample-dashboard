@@ -2980,9 +2980,6 @@ function renderAnalytics(){
       <div class="bar" style="height:${(v/maxW)*100}%;background:var(--blue-accent);opacity:${0.45+0.55*(i/5)}"></div>
       <div class="bar-label">${wkL[i]}</div>
     </div>`).join('');
-  const licN=pool.filter(a=>a.licensed).length;
-  document.getElementById('licPct').textContent=Math.round(licN/total*100)+'%';
-  document.getElementById('licDetail').textContent=`${licN} of ${pool.length} applicants`;
   const srcC={};SOURCES.forEach(s=>srcC[s]=0);
   pool.forEach(a=>a.source.forEach(s=>srcC[s]=(srcC[s]||0)+1));
   const topSrc=Object.entries(srcC).sort((a,b)=>b[1]-a[1]).slice(0,6);
@@ -5189,9 +5186,16 @@ function renderMetricsAnalytics() {
       <div class="source-pct" style="color:${r.c}">${r.n}</div>
     </div>`).join('');
 
-  // ── License rate ────────────────────────
-  const licN = pool.filter(a => a.licensed).length;
-  const licPctVal = Math.round(licN/total*100);
+  // ── Time to first contact ────────────────
+  const contacted = pool.filter(a => a.lastContact);
+  const avgDays = contacted.length === 0 ? null : Math.round(
+    contacted.reduce((sum, a) => {
+      const sub  = new Date(a.submitted  + 'T12:00:00');
+      const last = new Date(a.lastContact + 'T12:00:00');
+      return sum + Math.max(0, (last - sub) / (1000*60*60*24));
+    }, 0) / contacted.length
+  );
+  const neverContacted = pool.filter(a => !a.lastContact).length;
 
   // ── Assemble ────────────────────────────
   el.innerHTML = `
@@ -5203,10 +5207,15 @@ function renderMetricsAnalytics() {
         <div class="bar-chart">${weekChartHtml}</div>
       </div>
       <div class="chart-card">
-        <div class="chart-title">License Rate</div>
+        <div class="chart-title">Time to First Contact</div>
         <div style="display:flex;align-items:center;gap:24px;margin-top:8px">
-          <div class="big-pct" style="color:#40C882">${licPctVal}%</div>
-          <div style="font-size:12px;color:var(--gray)">${licN} of ${pool.length} applicants licensed</div>
+          <div class="big-pct" style="color:${avgDays===null?'var(--gray)':avgDays<=2?'#40C882':avgDays<=5?'#E8A830':'#E87070'}">
+            ${avgDays===null?'—':avgDays+'d'}
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--gray-light)">${avgDays===null?'No contacts logged yet':`avg days from application to first contact`}</div>
+            ${neverContacted>0?`<div style="font-size:11px;color:#E87070;margin-top:4px">${neverContacted} applicant${neverContacted>1?'s':''} never contacted</div>`:'<div style="font-size:11px;color:#40C882;margin-top:4px">All applicants contacted ✓</div>'}
+          </div>
         </div>
       </div>
     </div>
