@@ -806,7 +806,7 @@
       <div class="user-avatar">RM</div>
       <div style="flex:1">
         <div class="user-name">Rainer McDonald</div>
-        <div class="user-role">Senior Recruiter</div>
+        <div class="user-role">Boston Office</div>
       </div>
       <button onclick="toggleLightMode()" id="lightModeBtn" title="Toggle light/dark mode"
         style="background:none;border:none;color:var(--gray);cursor:pointer;font-size:15px;padding:4px;transition:color 0.15s;flex-shrink:0"
@@ -861,7 +861,7 @@
 
             <!-- Calls -->
             <div class="stat-group">
-              <div class="stat-group-label" style="color:#6B8FA8">Preliminary Calls</div>
+              <div class="stat-group-label" style="color:#6B8FA8">Intro Calls</div>
               <div class="stat-group-cards" style="grid-template-columns:repeat(3,1fr)">
                 <div class="stat-card clickable" onclick="goToFilter('Preliminary Call','Invited')"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#E87070;border-radius:4px 0 0 4px"></div><div class="stat-label">Invited</div><div class="stat-value" id="st-call-invited" style="color:#E87070">0</div></div>
                 <div class="stat-card clickable" onclick="goToFilter('Preliminary Call','Scheduled')"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#E8A830;border-radius:4px 0 0 4px"></div><div class="stat-label">Scheduled</div><div class="stat-value" id="st-call-scheduled" style="color:#E8A830">0</div></div>
@@ -927,14 +927,13 @@
           <div class="filter-bar">
             <div class="filter-pill active" onclick="setStageFilter('all',this)">All</div>
             <div class="filter-pill" onclick="setStageFilter('Application',this)">Application</div>
-            <div class="filter-pill" onclick="setStageFilter('Preliminary Call',this)">Prelim Call</div>
+            <div class="filter-pill" onclick="setStageFilter('Preliminary Call',this)">Intro Call</div>
             <div class="filter-pill" onclick="setStageFilter('Interview',this)">Interview</div>
             <div class="filter-pill" onclick="setSubFilter('Offer','Verbal Offer Extended',this)" style="border-color:rgba(91,168,160,0.35)">Verbal Extended</div>
             <div class="filter-pill" onclick="setSubFilter('Offer','Verbal Offer Accepted',this)" style="border-color:rgba(91,168,160,0.35)">Verbal Accepted</div>
             <div class="filter-pill" onclick="setSubFilter('Offer','Offer Accepted',this)" style="border-color:rgba(91,168,160,0.35)">Paperwork Sent</div>
             <div class="filter-pill" onclick="setSubFilter('Offer','Paperwork Signed',this)" style="border-color:rgba(91,168,160,0.35)">Paperwork Signed</div>
             <div class="filter-pill" onclick="setStageFilter('Dispositioned',this)">Dispositioned</div>
-            <select class="filter-select" id="cityFilter" onchange="renderTable()"><option value="">All Cities</option></select>
             <select class="filter-select" id="posFilter" onchange="renderTable()">
               <option value="">All Positions</option>
               <option>Investment Sales</option><option>Capital Markets</option><option>Internship</option>
@@ -1797,9 +1796,9 @@ Download at: https://teams.microsoft.com/downloads</textarea></div>
           <div class="schedule-field">
             <div class="schedule-label">Activity Type</div>
             <div class="schedule-type-grid">
-              <div class="schedule-type-btn selected" data-type="📞 Phone Call" onclick="selectScheduleType(this)">
+              <div class="schedule-type-btn selected" data-type="📞 Intro Call" onclick="selectScheduleType(this)">
                 <div class="schedule-type-icon">📞</div>
-                <div class="schedule-type-label">Phone Call</div>
+                <div class="schedule-type-label">Intro Call</div>
               </div>
               <div class="schedule-type-btn" data-type="📹 Video Call" onclick="selectScheduleType(this)">
                 <div class="schedule-type-icon">📹</div>
@@ -1911,7 +1910,7 @@ Download at: https://teams.microsoft.com/downloads</textarea></div>
           <div class="log-contact-row">
             <select class="contact-type-select" id="contactType">
               <option value="📞 Cold Call">📞 Cold Call</option>
-              <option value="📞 Phone Call">📞 Phone Call</option>
+              <option value="📞 Intro Call">📞 Intro Call</option>
               <option value="📧 Email">📧 Email</option>
               <option value="💬 Text Message">💬 Text Message</option>
               <option value="🤝 In-Person Meeting">🤝 In-Person Meeting</option>
@@ -1947,7 +1946,7 @@ Download at: https://teams.microsoft.com/downloads</textarea></div>
 const STAGES = [
   { key:'Application',     label:'Application',      color:'#6B8FA8',
     subs:['New','Reviewed'] },
-  { key:'Preliminary Call',label:'Preliminary Call', color:'#6B8FA8',
+  { key:'Preliminary Call',label:'Intro Call', color:'#6B8FA8',
     subs:['Invited','Scheduled','Complete'] },
   { key:'Interview',       label:'Interview',         color:'#6B8FA8',
     subs:['Invited','Scheduled','Complete'] },
@@ -2416,11 +2415,11 @@ function renderOverview(){
   const weekNavList = weekItems.map(({a}) => a);
 
   const now=new Date();
-  const ICONS={'📞 Phone Call':'📞','📹 Video Call':'📹','🤝 In-Person Interview':'🤝'};
+  const ICONS={'📞 Intro Call':'📞','📹 Video Call':'📹','🤝 In-Person Interview':'🤝'};
 
   // Map schedule type to email template key — kept for saveComplete follow-up actions
   const TYPE_TO_TEMPLATE = {
-    '📞 Phone Call':        'introcall',
+    '📞 Intro Call':        'introcall',
     '📹 Video Call':        'teams',
     '🤝 In-Person Interview':'interview',
   };
@@ -2731,13 +2730,7 @@ function handleSearch(){
   renderTable();
 }
 function renderTable(){
-  const cf=document.getElementById('cityFilter');
-  if(cf&&cf.options.length<=1){
-    [...new Set(applicants.map(a=>a.city))].sort().forEach(c=>{
-      const o=document.createElement('option');o.value=c;o.textContent=c;cf.appendChild(o);
-    });
-  }
-  const cityF=document.getElementById('cityFilter')?.value||'';
+
   const posF=document.getElementById('posFilter')?.value||'';
   const posFilterEl=document.getElementById('posFilter');
   if(posFilterEl) posFilterEl.style.display=currentPosition==='all'?'':'none';
@@ -2749,7 +2742,6 @@ function renderTable(){
       : a.subStatus===subFilter.subStatus
   );
   if(hiddenStatuses.size > 0) list = list.filter(isVisible);
-  if(cityF) list=list.filter(a=>a.city===cityF);
   if(cumulativeFilter === 'calls')      list = list.filter(a => (a.callsCompleted||0) > 0);
   if(cumulativeFilter === 'interviews') list = list.filter(a => (a.interviewsCompleted||0) > 0);
   if(posF) list=list.filter(a=>a.position===posF);
@@ -2959,15 +2951,28 @@ function renderPipeline(){
 function renderAnalytics(){
   const pool=posApplicants();
   const total=pool.length||1;
+
+  // Calculate week buckets from actual submitted dates
+  const nowA = new Date();
+  const thisMondayA = new Date(nowA);
+  thisMondayA.setHours(0,0,0,0);
+  const dayA = thisMondayA.getDay();
+  thisMondayA.setDate(thisMondayA.getDate() - (dayA === 0 ? 6 : dayA - 1));
+
   const wks=Array(6).fill(0);
-  pool.forEach(a=>{if(a.week<6)wks[a.week]++;});
+  pool.forEach(a=>{
+    if(!a.submitted) return;
+    const sub = new Date(a.submitted + 'T12:00:00');
+    const diffWeeks = Math.floor((thisMondayA - sub) / (7*24*60*60*1000));
+    if(diffWeeks >= 0 && diffWeeks < 6) wks[5 - diffWeeks]++;
+  });
   const maxW=Math.max(...wks,1);
   const wkL = Array.from({length: 6}, (_, i) => {
-    const offset = -(5 - i);
-    const d = new Date();
-    d.setDate(d.getDate() + offset * 7 - (d.getDay() === 0 ? 6 : d.getDay() - 1));
-    const fmt = dt => dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    return offset === 0 ? 'This Week' : fmt(d);
+    const weeksAgo = 5 - i;
+    const mon = new Date(thisMondayA);
+    mon.setDate(mon.getDate() - weeksAgo * 7);
+    if(weeksAgo === 0) return 'This Week';
+    return mon.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   });
   document.getElementById('weekChart').innerHTML=wks.map((v,i)=>`
     <div class="bar-wrap">
@@ -3040,7 +3045,6 @@ let currentNavList = [];   // filtered+sorted list at time of panel open
 let pendingNavDir  = null; // -1 or 1 — direction waiting for confirmation
 
 function getFilteredList() {
-  const cityF  = document.getElementById('cityFilter')?.value  || '';
   const posF   = document.getElementById('posFilter')?.value   || '';
   let list = posApplicants();
   if(stageFilter !== 'all') list = list.filter(a => a.stageKey === stageFilter);
@@ -3052,7 +3056,6 @@ function getFilteredList() {
   if(hiddenStatuses.size > 0) list = list.filter(isVisible);
   if(cumulativeFilter === 'calls')      list = list.filter(a => (a.callsCompleted||0) > 0);
   if(cumulativeFilter === 'interviews') list = list.filter(a => (a.interviewsCompleted||0) > 0);
-  if(cityF) list = list.filter(a => a.city === cityF);
   if(posF)  list = list.filter(a => a.position === posF);
   if(searchQuery) list = list.filter(a =>
     `${a.firstName} ${a.lastName} ${a.email} ${a.city} ${a.subStatus}`.toLowerCase().includes(searchQuery)
@@ -3622,7 +3625,7 @@ function saveComplete(){
   s.completed = true;
 
   // Record completion metric based on activity type
-  if(s.type === '📞 Phone Call' || s.type === '📹 Video Call'){
+  if(s.type === '📞 Intro Call' || s.type === '📹 Video Call'){
     recordCompletion(a, 'call');
   } else if(s.type === '🤝 In-Person Interview'){
     recordCompletion(a, 'interview');
@@ -3673,7 +3676,7 @@ function saveComplete(){
         // Capture scheduleType BEFORE closeCompleteModal nulls completeContext
         const scheduleType = completeContext?.scheduleType || s.type || '';
         const TYPE_TO_TEMPLATE = {
-          '📞 Phone Call':          'introcall',
+          '📞 Intro Call':          'introcall',
           '📹 Video Call':          'teams',
           '🤝 In-Person Interview': 'interview',
         };
@@ -3709,6 +3712,9 @@ function saveComplete(){
   saveData();
   closeCompleteModal();
   renderOverview();
+  // Refresh metrics if currently visible
+  const av = document.querySelector('.view.active')?.id;
+  if(av === 'view-metrics') renderMetricsDashboard();
   // Refresh scheduled section if detail panel is open
   if(currentApplicant) renderScheduled();
 }
@@ -3825,7 +3831,7 @@ function confirmUndo() {
   if(s) {
     s.completed = false;
     // Decrement the appropriate completion counter
-    if(s.type === '📞 Phone Call' || s.type === '📹 Video Call'){
+    if(s.type === '📞 Intro Call' || s.type === '📹 Video Call'){
       a.callsCompleted = Math.max(0, (a.callsCompleted || 0) - 1);
     } else if(s.type === '🤝 In-Person Interview'){
       a.interviewsCompleted = Math.max(0, (a.interviewsCompleted || 0) - 1);
@@ -4243,7 +4249,7 @@ function confirmSendEmail() {
 // ══════════════════════════════════════════
 // SCHEDULING + CALENDAR
 // ══════════════════════════════════════════
-const SCHEDULE_ICONS = {'📞 Phone Call':'📞','📹 Video Call':'📹','🤝 In-Person Interview':'🤝'};
+const SCHEDULE_ICONS = {'📞 Intro Call':'📞','📹 Video Call':'📹','🤝 In-Person Interview':'🤝'};
 
 let calWeekOffset = 0;
 const HOURS_START = 7, HOURS_END = 20, HOUR_H = 48;
@@ -4345,7 +4351,7 @@ function updateCalendarPreview(){
   const height = Math.max((dur/60)*HOUR_H-2, 20);
 
   const typeEl = document.querySelector('.schedule-type-btn.selected');
-  const type = typeEl?.dataset.type||'📞 Phone Call';
+  const type = typeEl?.dataset.type||'📞 Intro Call';
   const icon = SCHEDULE_ICONS[type]||'📅';
   const name = currentApplicant ? `${currentApplicant.firstName} ${currentApplicant.lastName.charAt(0)}.` : 'New';
 
@@ -4476,8 +4482,8 @@ function openScheduleModal(){
   document.getElementById('scheduleDateTime').value=tmr.toISOString().slice(0,16);
   document.getElementById('scheduleNote').value='';
   document.querySelectorAll('.schedule-type-btn').forEach(b=>b.classList.remove('selected'));
-  document.querySelector('.schedule-type-btn[data-type="📞 Phone Call"]').classList.add('selected');
-  updateDurationOptions('📞 Phone Call');
+  document.querySelector('.schedule-type-btn[data-type="📞 Intro Call"]').classList.add('selected');
+  updateDurationOptions('📞 Intro Call');
   document.getElementById('scheduleModalOverlay').classList.add('open');
   setTimeout(renderCalendar, 50);
 }
@@ -4491,7 +4497,7 @@ function handleScheduleOverlayClick(e){
 }
 
 const DURATION_OPTIONS = {
-  '📞 Phone Call': [
+  '📞 Intro Call': [
     { value: 15, label: '15 minutes', selected: true },
     { value: 30, label: '30 minutes' },
   ],
@@ -4510,7 +4516,7 @@ const DURATION_OPTIONS = {
 function updateDurationOptions(type) {
   const sel = document.getElementById('scheduleDuration');
   if(!sel) return;
-  const opts = DURATION_OPTIONS[type] || DURATION_OPTIONS['📞 Phone Call'];
+  const opts = DURATION_OPTIONS[type] || DURATION_OPTIONS['📞 Intro Call'];
   sel.innerHTML = opts.map(o =>
     `<option value="${o.value}"${o.selected?' selected':''}>${o.label}</option>`
   ).join('');
@@ -4526,7 +4532,7 @@ function selectScheduleType(el){
 function confirmSchedule(){
   if(!currentApplicant) return;
   const typeEl=document.querySelector('.schedule-type-btn.selected');
-  const type=typeEl?typeEl.dataset.type:'📞 Phone Call';
+  const type=typeEl?typeEl.dataset.type:'📞 Intro Call';
   const dt=document.getElementById('scheduleDateTime').value;
   const note=document.getElementById('scheduleNote').value.trim();
   if(!dt){ document.getElementById('scheduleDateTime').focus(); return; }
@@ -4537,7 +4543,7 @@ function confirmSchedule(){
   const a = currentApplicant;
 
   // Auto-advance stage/subStatus to Scheduled based on activity type
-  const isCall      = type === '📞 Phone Call' || type === '📹 Video Call';
+  const isCall      = type === '📞 Intro Call' || type === '📹 Video Call';
   const isInterview = type === '🤝 In-Person Interview';
 
   if(isCall) {
@@ -4647,8 +4653,8 @@ function renderScheduled(){
 // Activity targets — weekly/monthly targets per metric
 const activityTargets = {
   coldCalls:           { label: 'Cold Calls Made',              weekly: 50,  monthly: 200 },
-  callsScheduled:      { label: 'Calls Scheduled',              weekly: 15,  monthly:  60 },
-  callsCompleted:      { label: 'Calls Completed',              weekly: 12,  monthly:  48 },
+  callsScheduled:      { label: 'Intro Calls Scheduled',              weekly: 15,  monthly:  60 },
+  callsCompleted:      { label: 'Intro Calls Completed',              weekly: 12,  monthly:  48 },
   interviewsBooked:    { label: 'Interviews Booked',            weekly:  6,  monthly:  24 },
   interviewsCompleted: { label: 'Interviews Completed',         weekly:  4,  monthly:  16 },
   offersExtended:      { label: 'Offers Extended',              weekly:  2,  monthly:   8 },
@@ -4779,9 +4785,9 @@ function renderMetricsDashboard() {
   const weekActuals = {
     coldCalls:           pool.reduce((sum,a) => sum + (a.coldCallsLogged||0), 0),
     callsScheduled:      pool.filter(a=>a.stageKey==='Preliminary Call'&&a.subStatus==='Scheduled').length,
-    callsCompleted:      pool.filter(a=>a.stageKey==='Preliminary Call'&&a.subStatus==='Complete').length,
+    callsCompleted:      pool.reduce((sum,a) => sum + (a.callsCompleted||0), 0),
     interviewsBooked:    pool.filter(a=>a.stageKey==='Interview'&&a.subStatus==='Scheduled').length,
-    interviewsCompleted: pool.reduce((sum,a)=>sum+(a.interviewsCompleted||0),0),
+    interviewsCompleted: pool.reduce((sum,a) => sum + (a.interviewsCompleted||0), 0),
     offersExtended:      pool.filter(a=>a.stageKey==='Offer').length,
   };
   const monthActuals = { ...weekActuals };
@@ -4794,7 +4800,7 @@ function renderMetricsDashboard() {
       ${[
         { label:'Total',      val: total,           color:'var(--white)' },
         { label:'In Process', val: total - rejected, color:'#6B8FA8' },
-        { label:'Calls',      val: calls,            color:'#6B8FA8' },
+        { label:'Intro Calls',      val: calls,            color:'#6B8FA8' },
         { label:'Interviews', val: interviews,       color:'#6B8FA8' },
         { label:'Offers',     val: offers,           color:'#48B872' },
         { label:'Rejected',   val: rejected,         color:'#E87070' },
@@ -5081,17 +5087,31 @@ function renderMetricsAnalytics() {
     </div>`;
 
   // ── Applications by Week ────────────────
+  // Calculate week bucket dynamically from submitted date
+  const now = new Date();
+  // Monday of current week
+  const thisMonday = new Date(now);
+  thisMonday.setHours(0,0,0,0);
+  const day = thisMonday.getDay();
+  thisMonday.setDate(thisMonday.getDate() - (day === 0 ? 6 : day - 1));
+
   const wks = Array(6).fill(0);
-  pool.forEach(a => { if(a.week < 6) wks[a.week]++; });
+  pool.forEach(a => {
+    if(!a.submitted) return;
+    const sub = new Date(a.submitted + 'T12:00:00');
+    const diffMs = thisMonday - sub;
+    const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
+    // diffWeeks: 0 = this week, 1 = last week, ... 5 = 5 weeks ago
+    if(diffWeeks >= 0 && diffWeeks < 6) wks[5 - diffWeeks]++;
+  });
   const maxW = Math.max(...wks, 1);
+
   const wkL = Array.from({length: 6}, (_, i) => {
-    const offset = -(5 - i); // -5 = oldest, 0 = this week
-    const d = new Date();
-    d.setDate(d.getDate() + offset * 7 - (d.getDay() === 0 ? 6 : d.getDay() - 1));
-    const mon = new Date(d);
-    const sun = new Date(d); sun.setDate(sun.getDate() + 6);
-    const fmt = dt => dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    return offset === 0 ? `This Week` : `${fmt(mon)}`;
+    const weeksAgo = 5 - i;
+    const mon = new Date(thisMonday);
+    mon.setDate(mon.getDate() - weeksAgo * 7);
+    if(weeksAgo === 0) return 'This Week';
+    return mon.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   });
   const weekChartHtml = wks.map((v,i) => `
     <div class="bar-wrap">
@@ -5886,7 +5906,7 @@ function renderProspectPanel() {
         <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Add Meeting</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
           <select id="pmType_${p.id}" style="background:var(--navy-card);border:1px solid var(--navy-border);border-radius:3px;padding:6px 8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;outline:none">
-            <option>Phone Call</option>
+            <option>Intro Call</option>
             <option>Video Call</option>
             <option>In-Person Meeting</option>
             <option>Platform Pitch</option>
@@ -5910,7 +5930,7 @@ function renderProspectPanel() {
       <div style="display:flex;gap:8px;margin-bottom:${p.contacts.length?'12px':'0'}">
         <select id="pcType_${p.id}" style="background:var(--navy-mid);border:1px solid var(--navy-border);border-radius:3px;padding:7px 8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;outline:none;flex-shrink:0">
           <option>📞 Cold Call</option>
-          <option>📞 Phone Call</option>
+          <option>📞 Intro Call</option>
           <option>📧 Email</option>
           <option>💬 Text</option>
           <option>🤝 In-Person</option>
@@ -5960,7 +5980,7 @@ function renderProspectPanel() {
 function addProspectMeeting(id) {
   const p = prospects.find(x=>x.id===id);
   if(!p) return;
-  const type  = document.getElementById(`pmType_${id}`)?.value||'Phone Call';
+  const type  = document.getElementById(`pmType_${id}`)?.value||'Intro Call';
   const date  = document.getElementById(`pmDate_${id}`)?.value||'';
   const note  = document.getElementById(`pmNote_${id}`)?.value.trim()||'';
   const displayDate = date ? new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '(Date TBD)';
