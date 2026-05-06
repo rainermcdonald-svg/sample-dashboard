@@ -3386,6 +3386,11 @@ async function handleResumeFile(file){
   document.getElementById('ncParsingStatus').textContent = 'Reading file…';
 
   try {
+    // Determine media type first
+    const ext = file.name.split('.').pop().toLowerCase();
+    const isPdf = ext === 'pdf';
+    const mediaType = isPdf ? 'application/pdf' : 'text/plain';
+
     // Read file as base64
     const base64 = await new Promise((res, rej) => {
       const reader = new FileReader();
@@ -3395,14 +3400,9 @@ async function handleResumeFile(file){
     });
 
     // Store for later use in candidate record
-    ncUploadedFileData = { base64, mediaType: isPdf ? 'application/pdf' : 'text/plain', isPdf };
+    ncUploadedFileData = { base64, mediaType, isPdf };
 
     document.getElementById('ncParsingStatus').textContent = 'Extracting candidate information…';
-
-    // Determine media type
-    const ext = file.name.split('.').pop().toLowerCase();
-    const isPdf = ext === 'pdf';
-    const mediaType = isPdf ? 'application/pdf' : 'text/plain';
 
     // Call Anthropic API
     const response = await fetch('https://api.anthropic.com/v1/messages', {
